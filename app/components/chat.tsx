@@ -1382,7 +1382,7 @@ function _Chat() {
     session.messages,
     userInput,
   ]);
-  const accessStore = useAccessStore();
+
 // 编程解释：!! 是把值转换为 true/false。我们检查 Key 是否存在 AND 是否不是那个用于 Vercel 构建的假 Key ('sk-123456')
   const hasUserApiKey = !!accessStore.openaiApiKey && accessStore.openaiApiKey !== 'sk-123456'; 
 
