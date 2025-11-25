@@ -28,10 +28,8 @@ export function AuthPage() {
     if (getClientConfig()?.isApp) {
       navigate(Path.Settings);
     }
-    // 自动登录检测：如果本地已经存了 Key，直接跳过登录页进入聊天
-    if (accessStore.openaiApiKey) {
-      goChat();
-    }
+    // 【修复】：删除了自动跳转逻辑
+    // 这样当用户点击“输入密钥”时，会停留在这里，给用户机会修改过期的 Key
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -48,17 +46,17 @@ export function AuthPage() {
         <BotIcon />
       </div>
 
-      <div className={styles["auth-title"]}>需要登录</div>
-      <div className={styles["auth-tips"]}>请填入密钥</div>
+      <div className={styles["auth-title"]}>需要更新密钥</div>
+      <div className={styles["auth-tips"]}>您的密钥已过期或无效，请在下方输入新密钥</div>
 
-      {/* 仅保留 OpenAI Key 输入框，作为通用的密钥输入口 */}
+      {/* 仅保留 OpenAI Key 输入框 */}
       <PasswordInput
         style={{ marginTop: "3vh", marginBottom: "3vh" }}
         aria={Locale.Settings.ShowPassword}
         aria-label="密钥"
         value={accessStore.openaiApiKey}
         type="text"
-        placeholder="在此输入密钥 (sk-...)"
+        placeholder="在此输入新密钥 (sk-...)"
         onChange={(e) => {
           accessStore.update(
             (access) => (access.openaiApiKey = e.currentTarget.value),
@@ -68,7 +66,7 @@ export function AuthPage() {
 
       <div className={styles["auth-actions"]}>
         <IconButton
-          text="确认登录"
+          text="确认更新并登录"
           type="primary"
           onClick={goChat}
         />
