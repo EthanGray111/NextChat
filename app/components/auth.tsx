@@ -28,6 +28,10 @@ export function AuthPage() {
     if (getClientConfig()?.isApp) {
       navigate(Path.Settings);
     }
+    // 自动登录检测：如果本地已经存了 Key，直接跳过登录页进入聊天
+    if (accessStore.openaiApiKey) {
+      goChat();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
