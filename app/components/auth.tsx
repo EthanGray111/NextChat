@@ -44,58 +44,27 @@ export function AuthPage() {
         <BotIcon />
       </div>
 
-      <div className={styles["auth-title"]}>{Locale.Auth.Title}</div>
-      <div className={styles["auth-tips"]}>{Locale.Auth.Tips}</div>
+      <div className={styles["auth-title"]}>需要登录</div>
+      <div className={styles["auth-tips"]}>请填入密钥</div>
 
+      {/* 仅保留 OpenAI Key 输入框，作为通用的密钥输入口 */}
       <PasswordInput
         style={{ marginTop: "3vh", marginBottom: "3vh" }}
         aria={Locale.Settings.ShowPassword}
-        aria-label={Locale.Auth.Input}
-        value={accessStore.accessCode}
+        aria-label="密钥"
+        value={accessStore.openaiApiKey}
         type="text"
-        placeholder={Locale.Auth.Input}
+        placeholder="在此输入密钥 (sk-...)"
         onChange={(e) => {
           accessStore.update(
-            (access) => (access.accessCode = e.currentTarget.value),
+            (access) => (access.openaiApiKey = e.currentTarget.value),
           );
         }}
       />
 
-      {!accessStore.hideUserApiKey ? (
-        <>
-          <div className={styles["auth-tips"]}>{Locale.Auth.SubTips}</div>
-          <PasswordInput
-            style={{ marginTop: "3vh", marginBottom: "3vh" }}
-            aria={Locale.Settings.ShowPassword}
-            aria-label={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}
-            value={accessStore.openaiApiKey}
-            type="text"
-            placeholder={Locale.Settings.Access.OpenAI.ApiKey.Placeholder}
-            onChange={(e) => {
-              accessStore.update(
-                (access) => (access.openaiApiKey = e.currentTarget.value),
-              );
-            }}
-          />
-          <PasswordInput
-            style={{ marginTop: "3vh", marginBottom: "3vh" }}
-            aria={Locale.Settings.ShowPassword}
-            aria-label={Locale.Settings.Access.Google.ApiKey.Placeholder}
-            value={accessStore.googleApiKey}
-            type="text"
-            placeholder={Locale.Settings.Access.Google.ApiKey.Placeholder}
-            onChange={(e) => {
-              accessStore.update(
-                (access) => (access.googleApiKey = e.currentTarget.value),
-              );
-            }}
-          />
-        </>
-      ) : null}
-
       <div className={styles["auth-actions"]}>
         <IconButton
-          text={Locale.Auth.Confirm}
+          text="确认登录"
           type="primary"
           onClick={goChat}
         />
