@@ -494,25 +494,7 @@ export class ChatGPTApi implements LLMApi {
     } as LLMUsage;
   }
 
-  async models(): Promise<LLMModel[]> {
-    if (this.disableListModels) {
-      return DEFAULT_MODELS.slice();
-    }
-
-    const res = await fetch(this.path(OpenaiPath.ListModelPath), {
-      method: "GET",
-      headers: {
-        ...getHeaders(),
-      },
-    });
-
-    const resJson = (await res.json()) as OpenAIListModelResponse;
-    const chatModels = resJson.data?.filter(
-      (m) => m.id.startsWith("gpt-") || m.id.startsWith("chatgpt-"),
-    );
-    console.log("[Models]", chatModels);
-
-    if (!chatModels) {
+  async models() {
       return [];
     }
 
