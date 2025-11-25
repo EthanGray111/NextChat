@@ -1407,7 +1407,7 @@ function _Chat() {
     if (!isReminderInjected) {
         // 编程解释：unshift() 在 renderMessages 数组的开头插入元素
         renderMessages.unshift({
-            id: Date.now() + Math.random(), // 唯一 ID
+            id: (Date.now() + Math.random()).toString(), // 唯一 ID
             role: "assistant", // 伪装成 AI 的回复
             content: reminderText,
             date: new Date().toISOString(),
