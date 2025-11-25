@@ -13,7 +13,7 @@ export const DOCKER_HTML_PATH = "/app/out/index.html";
 
 export const IP_OPENAI_URL = "https://api.openai.com";
 
-// 🟢 你的品牌设置（保持不变）
+// 🟢 核心修改：将应用名称改为 Gemini 3.0
 export const AppName = "Gemini 3.0";
 export const AppDescription = "基于 Google 最强 Gemini 模型构建的全能 AI 助手";
 
@@ -88,7 +88,7 @@ export enum ServiceProvider {
   "302.AI" = "302.AI",
 }
 
-// 🟢 补回缺失的 ModelProvider 定义（代码编译需要）
+// 🟢 核心修改：确保 ModelProvider 存在，防止编译报错
 export enum ModelProvider {
   GPT = "GPT",
   Gemini = "Gemini",
@@ -144,7 +144,7 @@ export const DEFAULT_TTS_ENGINE = "OpenAI-TTS";
 export const DEFAULT_TTS_MODEL = "tts-1";
 export const DEFAULT_TTS_VOICE = "alloy";
 
-// 🟢 你的默认模型设置（保持不变）
+// 🟢 核心修改：默认模型只保留 Gemini
 export const DEFAULT_MODELS = [
   {
     name: "gemini-1.5-pro",
@@ -178,7 +178,6 @@ export const DEFAULT_MODELS = [
 export const CHAT_PAGE_SIZE = 15;
 export const MAX_RENDER_MSG_COUNT = 45;
 
-// some famous webdav endpoints
 export const suggestedWebDavEndpoints = [
   {
     name: "Fastmail",
@@ -202,7 +201,6 @@ export const suggestedWebDavEndpoints = [
   },
 ];
 
-// 🟢 补回所有缺失的 URL 常量
 export const OPENAI_BASE_URL = "https://api.openai.com";
 export const ANTHROPIC_BASE_URL = "https://api.anthropic.com";
 export const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/";
@@ -227,7 +225,6 @@ export const SAAS_CHAT_URL = "";
 export const SAAS_CHAT_UTM_URL = "";
 export const DEFAULT_GA_ID = "";
 
-// 🟢 补回 OpenaiPath 定义
 export const OpenaiPath = {
   ChatPath: "v1/chat/completions",
   UsagePath: "dashboard/billing/usage",
@@ -235,7 +232,6 @@ export const OpenaiPath = {
   ListModelPath: "v1/models",
 };
 
-// 🟢 补回各厂商配置对象
 export const Azure = {
   ExampleEndpoint: "https://{resource-name}.openai.azure.com",
 };
