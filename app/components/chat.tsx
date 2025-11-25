@@ -1382,7 +1382,39 @@ function _Chat() {
     session.messages,
     userInput,
   ]);
+  const accessStore = useAccessStore();
+// 编程解释：!! 是把值转换为 true/false。我们检查 Key 是否存在 AND 是否不是那个用于 Vercel 构建的假 Key ('sk-123456')
+  const hasUserApiKey = !!accessStore.openaiApiKey && accessStore.openaiApiKey !== 'sk-123456'; 
 
+// 2. 检查是否满足注入条件：A. 完整消息列表是空的 AND B. 用户没有 Key
+  if (renderMessages.length === 0 && !hasUserApiKey) {
+    // 编程解释：renderMessages.length === 0 表示完整列表里没有消息。!hasUserApiKey 表示 Key 状态是 false (无 Key)
+
+    // 3. 定义我们想显示的提示信息（请替换链接）
+    const reminderText = `
+        **对话遇到了问题，不用慌：**
+
+        1️⃣ **购买密钥** 请点击 [点此跳转发卡网购买](https://你的发卡网链接.com)
+        2️⃣ **点击这里** 输入访问密钥 🔑
+    `.trim();
+
+    // 4. 检查是否已经注入过这条消息（防止用户切换会话时重复显示）
+    const isReminderInjected = renderMessages.some(
+        (m) => m.content === reminderText && m.role === "assistant"
+    );
+
+    // 5. 如果没有 Key，且消息未被注入过，则注入！
+    if (!isReminderInjected) {
+        // 编程解释：unshift() 在 renderMessages 数组的开头插入元素
+        renderMessages.unshift({
+            id: Date.now() + Math.random(), // 唯一 ID
+            role: "assistant", // 伪装成 AI 的回复
+            content: reminderText,
+            date: new Date().toISOString(),
+          });
+    }
+  }
+// 之后的代码将使用这个被插入了提醒消息的 renderMessages 列表进行渲染。
   const [msgRenderIndex, _setMsgRenderIndex] = useState(
     Math.max(0, renderMessages.length - CHAT_PAGE_SIZE),
   );
